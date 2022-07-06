@@ -1,4 +1,5 @@
 import cv2
+import json
 
 
 def dataset_creation(sampleNumber):
@@ -6,7 +7,7 @@ def dataset_creation(sampleNumber):
     cam = cv2.VideoCapture(0)
     detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-    id = input("Enter an id > ")
+    idPerson = input("Enter an id (number) > ")
     sampleNum = 0
 
     while(sampleNum < sampleNumber):
@@ -21,7 +22,7 @@ def dataset_creation(sampleNumber):
             sampleNum += 1
 
             # saving the captured face in the dataset folder
-            cv2.imwrite("dataSet/User." + id + '.' +
+            cv2.imwrite("dataSet/User." + idPerson + '.' +
                         str(sampleNum) + ".jpg", gray[y:y+h, x:x+w])
             cv2.imshow('frame', img)
 
@@ -30,9 +31,21 @@ def dataset_creation(sampleNumber):
 
     name = input("Enter the name corresponding to this person > ")
 
-    memoryFile = open('memoryFile', 'a')
-    memoryFile.write(id + ":" + name + '\n')
-    memoryFile.close()
+    with open('memoryFile') as f:
+        data = f.read()
+    # reconstructing the data as a dictionary
+    nameCorrespondance = json.loads(data)
+
+    # adding in the dictionnary the new person data
+    nameCorrespondance[idPerson] = name
+
+    # create json object from dictionary
+    jsonObj = json.dumps(nameCorrespondance)
+
+    # open file for writing, "w", and write json object to file
+    f = open("memoryFile", "w")
+    f.write(jsonObj)
+    f.close()
 
 
 if __name__ == "__main__":

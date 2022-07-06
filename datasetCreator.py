@@ -5,7 +5,8 @@ import json
 def dataset_creation(sampleNumber):
 
     cam = cv2.VideoCapture(0)
-    detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    detector = cv2.CascadeClassifier(
+        'haarcascade/haarcascade_frontalface_default.xml')
 
     idPerson = input("Enter an id (number) > ")
     sampleNum = 0

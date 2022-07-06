@@ -5,7 +5,8 @@ import numpy as np
 
 def facialRecognition(debug=0):
 
-    detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    detector = cv2.CascadeClassifier(
+        'haarcascade/haarcascade_frontalface_default.xml')
     cam = cv2.VideoCapture(0)
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read('trainner/trainner.yml')

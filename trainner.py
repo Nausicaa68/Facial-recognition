@@ -12,7 +12,8 @@ def getImagesAndLabels(path):
     # initialiser l'identifiant
     Ids = []
 
-    detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    detector = cv2.CascadeClassifier(
+        "haarcascade/haarcascade_frontalface_default.xml")
 
     # boucle pour charger les identifiants
     for imagePath in imagePaths:

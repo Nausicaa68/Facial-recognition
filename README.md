@@ -4,7 +4,7 @@ Librairies
 cv2
 numpy
 PIL
-
+json
 
 
 pip install opencv-python

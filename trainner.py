@@ -3,9 +3,6 @@ import cv2
 import os
 from PIL import Image
 
-recognizer = cv2.face.LBPHFaceRecognizer_create()
-detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
-
 
 def getImagesAndLabels(path):
     # obtenir le schéma pour les images
@@ -14,6 +11,9 @@ def getImagesAndLabels(path):
     faceSamples = []
     # initialiser l'identifiant
     Ids = []
+
+    detector = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+
     # boucle pour charger les identifiants
     for imagePath in imagePaths:
         # conversion vers l'espace de niveau de gris
@@ -33,7 +33,19 @@ def getImagesAndLabels(path):
     return faceSamples, Ids
 
 
-faces, Ids = getImagesAndLabels('dataSet')
-recognizer.train(faces, np.array(Ids))
-recognizer.save('trainner/trainner.yml')
-cv2.destroyAllWindows()
+def vectorTrainner():
+
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
+
+    faces, Ids = getImagesAndLabels('dataSet')
+    try:
+        recognizer.train(faces, np.array(Ids))
+    except:
+        print("Error ! You need at least more than one sample to learn a model")
+
+    recognizer.save('trainner/trainner.yml')
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    vectorTrainner()

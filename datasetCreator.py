@@ -19,13 +19,13 @@ def dataset_creation(sampleNumber):
         for (x, y, w, h) in faces:
             cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
 
-            # incrementing sample number
-            sampleNum += 1
-
             # saving the captured face in the dataset folder
             cv2.imwrite("dataSet/User." + idPerson + '.' +
                         str(sampleNum) + ".jpg", gray[y:y+h, x:x+w])
             cv2.imshow('frame', img)
+
+        # incrementing sample number
+            sampleNum += 1
 
     cam.release()
     cv2.destroyAllWindows()

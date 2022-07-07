@@ -32,7 +32,7 @@ def dataset_creation(sampleNumber):
 
     name = input("Enter the name corresponding to this person > ")
 
-    with open('memoryFile') as f:
+    with open('idCorresp/memoryFile') as f:
         data = f.read()
     # reconstructing the data as a dictionary
     nameCorrespondance = json.loads(data)
@@ -44,7 +44,7 @@ def dataset_creation(sampleNumber):
     jsonObj = json.dumps(nameCorrespondance)
 
     # open file for writing, "w", and write json object to file
-    f = open("memoryFile", "w")
+    f = open("idCorresp/memoryFile", "w")
     f.write(jsonObj)
     f.close()
 

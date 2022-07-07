@@ -13,7 +13,7 @@ def facialRecognition(debug=0):
     font = cv2.FONT_HERSHEY_COMPLEX
 
     # importing the module json and read the data from the file
-    with open('memoryFile') as f:
+    with open('idCorresp/memoryFile') as f:
         data = f.read()
     # reconstructing the data as a dictionary
     nameCorrespondance = json.loads(data)

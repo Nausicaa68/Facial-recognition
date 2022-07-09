@@ -4,7 +4,11 @@ Si vous pensez que la reconnaissance faciale est très complexe à mettre en pla
 
 ## Librairies et dépendances
 
-Ce programme utilise plusieurs librairies, listées ci-dessous ou dans le fichier "requirement.txt". Pour installer toutes ces librairies, utilisez la commande pip suivante : **`pip install -r requirement.txt`**
+Ce programme utilise plusieurs librairies, listées ci-dessous ou dans le fichier "requirement.txt". Pour installer toutes ces librairies, utilisez la commande pip suivante : 
+
+```
+pip install -r requirement.txt
+```
 
 Les librairies suivantes seront téléchargées (entre parenthèse, la commande pip pour installer spécifiquement la librairie):   
 - OpenCV, spécialisé dans le traitement d'images en temps réel (**`pip install opencv-python`**, puis **`pip install opencv-contrib-python`** pour certaines fonctionnalités)

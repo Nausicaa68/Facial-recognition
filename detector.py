@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 
-def facialRecognition(debug=0):
+def facialRecognition():
 
     detector = cv2.CascadeClassifier(
         'haarcascade/haarcascade_frontalface_default.xml')
@@ -27,12 +27,6 @@ def facialRecognition(debug=0):
         for (x, y, w, h) in faces:
             cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
             idPerson, conf = recognizer.predict(gray[y:y+h, x:x+w])
-
-            if(debug != 0):
-                print(idPerson)
-                print(type(idPerson))
-                print(str(idPerson))
-
             try:
                 idName = nameCorrespondance[str(idPerson)]
             except KeyError:

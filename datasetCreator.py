@@ -1,5 +1,6 @@
 import cv2
 import json
+import os
 
 
 def dataset_creation(sampleNumber):
@@ -7,6 +8,10 @@ def dataset_creation(sampleNumber):
     cam = cv2.VideoCapture(0)
     detector = cv2.CascadeClassifier(
         'haarcascade/haarcascade_frontalface_default.xml')
+
+    if(os.path.exists("./DataSet") == False):
+        print("Creation of \"./DataSet\"")
+        os.makedirs("./DataSet", exist_ok=False)
 
     idPerson = input("Enter an id (number) > ")
     sampleNum = 0
@@ -20,7 +25,7 @@ def dataset_creation(sampleNumber):
             cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
 
             # saving the captured face in the dataset folder
-            cv2.imwrite("dataSet/User." + idPerson + '.' +
+            cv2.imwrite("DataSet/User." + idPerson + '.' +
                         str(sampleNum) + ".jpg", gray[y:y+h, x:x+w])
             cv2.imshow('frame', img)
 

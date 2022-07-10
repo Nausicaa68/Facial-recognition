@@ -37,8 +37,7 @@ def facialRecognition():
         cv2.imshow('frame', img)
 
         if cv2.waitKey(1) and 0xFF == ord('q'):
-            continuer = False
-            print("in if")
+            break
 
         if cv2.getWindowProperty('frame', cv2.WND_PROP_VISIBLE) < 1:
             break

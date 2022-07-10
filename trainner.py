@@ -6,10 +6,13 @@ from PIL import Image
 
 def getImagesAndLabels(path):
     # obtenir le schéma pour les images
-    imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
-    # la création d'une liste de visage
+    try:
+        imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
+    except FileNotFoundError:
+        print("Error. There is no dataset.")
+
+    # création d'une liste de visage et initialisation des IDs
     faceSamples = []
-    # initialiser l'identifiant
     Ids = []
 
     detector = cv2.CascadeClassifier(
@@ -19,11 +22,11 @@ def getImagesAndLabels(path):
     for imagePath in imagePaths:
         # conversion vers l'espace de niveau de gris
         pilImage = Image.open(imagePath).convert('L')
-        # convertir la liste en une liste numpy(vecteur d'images)
+        # conversion de la liste en une liste numpy (vecteur d'images)
         imageNp = np.array(pilImage, 'uint8')
-        # obtenir l'dentifiant de chaque image
+        # obtenir l'ID de chaque image
         Id = int(os.path.split(imagePath)[-1].split(".")[1])
-        # extract the face from the training image sample
+        # extraire la face de l'échantillon d'image d'entraînement
         faces = detector.detectMultiScale(imageNp)
         # charger la liste
         for (x, y, w, h) in faces:
@@ -36,16 +39,19 @@ def getImagesAndLabels(path):
 
 def vectorTrainner():
 
-    recognizer = cv2.face.LBPHFaceRecognizer_create()
+    if(os.path.exists("./DataSet") == True):
+        recognizer = cv2.face.LBPHFaceRecognizer_create()
 
-    faces, Ids = getImagesAndLabels('dataSet')
-    try:
-        recognizer.train(faces, np.array(Ids))
-    except:
-        print("Error ! You need at least more than one sample to learn a model")
+        faces, Ids = getImagesAndLabels('DataSet')
+        try:
+            recognizer.train(faces, np.array(Ids))
+        except:
+            print("Error ! You need at least more than one sample to learn a model")
 
-    recognizer.save('trainner/trainner.yml')
-    cv2.destroyAllWindows()
+        recognizer.save('trainner/trainner.yml')
+        cv2.destroyAllWindows()
+    else:
+        print("Error. There is no dataset folder.")
 
 
 if __name__ == "__main__":
